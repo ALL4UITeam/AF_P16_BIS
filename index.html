@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>BIS</title>
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="./assets/fonts/esamanru.css">
+	<link rel="stylesheet" href="./assets/fonts/Freesentation.css">
+	<link rel="stylesheet" href="./lib/simplebar/simplebar.css">
+	<link rel="stylesheet" href="./lib/jQuery-ui/jquery-ui.css">
+	<script src="./lib/jQuery/1.12.3/jquery.min.js"></script>
+	<script src="./lib/jQuery-ui/jquery-ui.min.js"></script>
+	<script src="./lib/simplebar/simplebar.min.js"></script>
+	<script src="./lib/GaugeMeter.js"></script>
+	<script src="./lib/interact.min.js"></script>  <script type="module" src="./assets/js/index2.js"></script>
+  <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+
+<body>
+    <style>
+        body{
+            padding-top: 3rem;
+            font-family: 'ChosunGu';
+        }
+        table{
+            border-collapse: collapse;
+            background: white;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        table thead tr{background-color: #f8f8f8;}
+        table thead th{
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+        table td:first-child{
+            text-decoration: underline;
+        }
+        table td, table th {
+            border: 1px solid #ddd;   
+            padding: 7px 10px;
+            white-space: nowrap;
+        }
+        
+        
+        .link-page{
+            margin: 0 auto;
+            width: 1200px;
+        }
+        h1{
+            padding-bottom: 2rem;
+            text-align: center;
+            color:#000
+        }
+        .search-box {
+            width: 100%;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .search-box input {
+            padding: 0.8rem 1rem;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1.4rem;
+        }
+        .search-box button {
+            margin-left: 1rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #36304a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.6rem;
+            color: #555;
+            display: none;
+        }
+    </style>
+    <h1>BIS</h1>
+    
+    <div class="link-page">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+            <button id="searchButton">검색</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>파일</th>
+                    <th>페이지명</th>
+                    <th>생성일</th>
+                    <th>수정일</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td><a href="./00_Map.html" target="_blank">00_Map.html</a></td>
+                    <td>00_Map</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a href="./01_Map.html" target="_blank">01_Map.html</a></td>
+                    <td>01_Map</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a href="./index.html" target="_blank">index.html</a></td>
+                    <td>index</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a href="./sub.html" target="_blank">sub.html</a></td>
+                    <td>sub</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const tableBody = document.getElementById('tableBody');
+            const noResults = document.getElementById('noResults');
+            const rows = tableBody.querySelectorAll('tr');
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let resultsFound = false;
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        row.style.display = '';
+                        resultsFound = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                
+                if (resultsFound) {
+                    noResults.style.display = 'none';
+                } else {
+                    noResults.style.display = 'block';
+                }
+            }
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
