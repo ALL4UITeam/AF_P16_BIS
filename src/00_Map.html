@@ -4,14 +4,13 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>LIVE BUS</title>
+	<title>BIS</title>
 	{{> meta}}
 </head>
 
 <body>
 	
 	<div class="Map">
-		{{> map_header}} 
         <!-- 툴 -->
         <div class=" Map--mode__top">
             <div class="Map--mode">
@@ -19,15 +18,7 @@
                 <button type="button" class=" btn--mode" data-toggle data-group="mapModeTop">위성</button>
             </div>
         </div>
-        <div class="Map--mode__bottom">
-            <div class="Map--mode">
-                <button type="button" class=" btn--mode location" title="위치"></button>
-            </div>
-            <div class="Map--mode zoom">
-                <button type="button" class=" btn--mode zoomin" title="확대" ></button>
-                <button type="button" class=" btn--mode zoomout" title="축소"></button>
-            </div>
-        </div>
+
         <!-- 패널 -->
         <div class="panel--wrap">
             <div class="panel--header">
@@ -38,6 +29,31 @@
                     <a href=""><img src="./assets/images/map/logo.png" alt="로고"></a>
                 </h1>  
             </div>
+            <div class="wGrInfo">
+					<!-- 그래프 -->
+					<div class="wGraphWrap">
+						<div class="chartBox">
+							<div class="GaugeMeter" id="PreviewGaugeMeter_1" data-percent="88" data-size="55" data-color="#6B4ACA" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9" data-label="ug/m3" data-style="Arch"  data-label_color="#83838D"></div>
+				
+							<div class="txtInfo">
+								<p>좋음</p>
+								<p>초미세먼지</p>									
+							</div>
+						</div>
+				
+						<div class="chartBox">
+							<div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="50" data-size="55" data-color="#6B4ACA" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9"  data-label="ug/m3"  data-style="Arch"  data-label_color="#83838D"></div>
+				
+							<div class="txtInfo">
+								<p>좋음</p>
+								<p>미세먼지</p>									
+							</div>
+						</div>
+					</div>
+					<!-- 그래프 -->
+				
+					<p class="exTxt">비 예보</p>
+				</div>
             <div class="panel--mid">
                 <div class="tab--nav">
                     <button class="tab--item active" data-tab="bus">버스</button>
@@ -433,67 +449,5 @@
         </div>
 	</div>
 </body>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const tabs = document.querySelectorAll(".tab--item");
-        const panels = document.querySelectorAll(".tab--panel");
-
-        tabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                const target = tab.getAttribute("data-tab");
-
-                // 탭 버튼 활성화 처리
-                tabs.forEach(t => t.classList.remove("active"));
-                tab.classList.add("active");
-
-                // 패널 보이기/숨기기
-                panels.forEach(panel => {
-                    panel.classList.remove("active");
-                    if (panel.id === target) {
-                        panel.classList.add("active");
-                    }
-                });
-            });
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const burgerBtn = document.querySelector(".burger-btn");
-        const map = document.querySelector(".Map");
-
-        if (burgerBtn && map) {
-            burgerBtn.addEventListener("click", function () {
-                map.classList.toggle("nav-open");
-
-                if (map.classList.contains("nav-open")) {
-                    if (!map.querySelector(".dimmed")) {
-                        const dimmed = document.createElement("div");
-                        dimmed.classList.add("dimmed");
-                        map.appendChild(dimmed);
-
-                        // DOM 추가 후 강제로 리플로우 → 애니메이션 시작
-                        requestAnimationFrame(() => {
-                            dimmed.classList.add("show");
-                        });
-
-                        dimmed.addEventListener("click", function () {
-                            map.classList.remove("nav-open");
-                            dimmed.classList.remove("show");
-                            setTimeout(() => dimmed.remove(), 300); // transition 끝난 후 제거
-                        });
-                    }
-                } else {
-                    const dimmed = map.querySelector(".dimmed");
-                    if (dimmed) {
-                        dimmed.classList.remove("show");
-                        setTimeout(() => dimmed.remove(), 300);
-                    }
-                }
-            });
-        }
-    });
-</script>
-
 
 </html>

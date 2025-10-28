@@ -419,6 +419,7 @@ button, a {
 }
 
 .Map {
+  overflow: hidden;
   position: relative;
   height: 100%;
   width: 100%;
@@ -556,6 +557,7 @@ button, a {
 .panel--wrap {
   width: 350px;
   height: 100%;
+  background: #f6f7fb;
   border-radius: 0 50px 0 0;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -768,9 +770,9 @@ button, a {
 
 .panel--expand {
   position: absolute;
-  left: 0px;
-  height: 100%;
-  top: 0px;
+  left: 420px;
+  height: calc(100% - 40px);
+  top: 20px;
   background: #ecf0f2;
   border-radius: 0 10px 10px 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -1050,9 +1052,14 @@ button, a {
 }
 
 /* ====== Design tokens ====== */
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
-  min-width: 1200px;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   font-family: "Freesentation", Segoe UI, Roboto, Noto Sans KR, Apple SD Gothic Neo, "Malgun Gothic", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
@@ -1064,4 +1071,203 @@ body {
   clip-path: inset(50%);
   overflow: hidden;
   white-space: nowrap;
+}
+
+/* 미세먼지 그래프 */
+.wGraphWrap {
+  display: flex;
+  justify-content: space-around;
+  height: 68px;
+}
+
+.wGraphWrap .GaugeMeter {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.wGraphWrap .chartBox {
+  position: relative;
+  width: 55px;
+  text-align: center;
+  gap: 12px;
+}
+
+.wGraphWrap .chartBox .txtInfo {
+  position: relative;
+  top: -16px;
+}
+
+.wGraphWrap .chartBox .txtInfo p {
+  color: #333;
+}
+
+.wGraphWrap .chartBox .txtInfo p:nth-child(1) {
+  font-size: 7px;
+  margin-bottom: 3px;
+}
+
+.wGraphWrap .chartBox .txtInfo p:nth-child(2) {
+  font-size: 9px;
+}
+
+.wGraphWrap output {
+  color: #000 !important;
+  font-size: 0.8125rem;
+  font-weight: bold;
+}
+
+.GaugeMeter span,
+.GaugeMeter B {
+  margin: 0 23%;
+  width: 55%;
+  position: absolute;
+  top: -5px;
+  text-align: center;
+  display: inline-block;
+  color: RGBa(0, 0, 0, 0.8);
+  font-weight: 100;
+  font-family: "Open Sans", Arial;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.GaugeMeter[data-style=Semi] B {
+  Margin: 0 10%;
+  Width: 80%;
+}
+
+.GaugeMeter S,
+.GaugeMeter U {
+  font-Size: 0.4em;
+  Opacity: 1;
+}
+
+.GaugeMeter B {
+  color: #444444;
+  font-Weight: 300;
+  font-size: 4px;
+}
+
+/* md 이상 (min-width: 768px~) */
+.card {
+  padding: 12px;
+}
+@media (min-width: 768px) {
+  .card {
+    padding: 20px;
+  }
+}
+
+/* lg 이하 (max-width: 1024px-) */
+.grid {
+  grid-template-columns: 1fr;
+}
+@media (max-width: calc(1024px - 0.02px)) {
+  .grid {
+    gap: 12px;
+  }
+}
+
+/* md ~ xl 사이 */
+.title {
+  font-size: 18px;
+}
+@media (min-width: 768px) and (max-width: calc(1280px - 0.02px)) {
+  .title {
+    font-size: 20px;
+  }
+}
+
+/* sm only (sm ~ 다음 bp 직전) */
+@media (min-width: 480px) and (max-width: calc(768px - 0.02px)) {
+  .nav {
+    display: none;
+  }
+}
+
+:root {
+  --max-h: 92svh;
+  --min-peek: 80px;
+  --radius: 16px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, sans-serif;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  z-index: 1000;
+  background: #fff;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  /* 초기엔 실제 높이를 고정해서 계산이 맞게 */
+  height: var(--max-h); /* ← 추가 */
+  max-height: var(--max-h);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
+  /* 여기! 100vh → var(--max-h) 로 교체 */
+  transform: translateY(calc(var(--max-h) - var(--min-peek)));
+  will-change: transform;
+  touch-action: none;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sheet--anim {
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sheet-handle {
+  padding: 8px 0 6px;
+  display: grid;
+  place-items: center;
+  cursor: grab;
+}
+
+.sheet-handle .grip {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: #d1d5db;
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid #eee;
+  touch-action: none; /* 드래그 제스처 전용 */
+}
+
+.sheet-title {
+  font-size: 16px;
+  margin: 0;
+}
+
+.sheet-close {
+  border: 0;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.sheet-content {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 14px 24px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }

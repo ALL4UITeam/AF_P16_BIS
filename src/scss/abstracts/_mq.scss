@@ -1,0 +1,107 @@
+// src/scss/abstracts/_mq.scss (Dart Sass 3 대응)
+
+// Sass 모듈 사용
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+
+// 1) 공통 브레이크포인트
+$breakpoints: (
+  xs: 0,
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  xxl: 1536px
+) !default;
+
+// 2) 다음 브레이크포인트(only용)
+@function _next-bp($name) {
+  $keys: map.keys($breakpoints);
+  $found: false;
+
+  @each $k in $keys {
+    @if $found == true { @return $k; }
+    @if $k == $name { $found: true; }
+  }
+  @return null;
+}
+
+// 3) 브레이크포인트 값
+@function bp($name) {
+  @if map.has-key($breakpoints, $name) {
+    @return map.get($breakpoints, $name);
+  }
+  @error "Unknown breakpoint `#{$name}`. Available: #{map.keys($breakpoints)}";
+}
+
+// 4) 핵심 respond 믹스인
+/// @param $from  이름(md) 또는 길이값(768px) → min-width
+/// @param $until 이름(lg) 또는 길이값(1024px) → max-width (exclusive 느낌으로 -0.02px)
+/// @param $and   추가 조건 문자열 ex) "screen and (orientation: landscape)"
+@mixin respond($from: null, $until: null, $and: null) {
+  $min: null;
+  $max: null;
+
+  @if $from != null and meta.type-of($from) == 'string' { $min: bp($from); }
+  @else { $min: $from; }
+
+  @if $until != null and meta.type-of($until) == 'string' { $max: bp($until); }
+  @else { $max: $until; }
+
+  // max 살짝 감소로 경계 겹침 방지
+  @if $max != null { $max: calc(#{$max} - 0.02px); }
+
+  // 쿼리 파츠
+  $parts: ();
+  @if $min != null { $parts: list.append($parts, "(min-width: #{$min})", $separator: space); }
+  @if $max != null { $parts: list.append($parts, "(max-width: #{$max})", $separator: space); }
+
+  // 'and'로 연결한 문자열
+  $query: "";
+  @if list.length($parts) == 1 {
+    $query: "#{list.nth($parts, 1)}";
+  } @else if list.length($parts) >= 2 {
+    $query: "#{list.nth($parts, 1)} and #{list.nth($parts, 2)}";
+  }
+
+  // 추가 조건 합치기
+  @if $and != null and $and != "" {
+    @if $query != "" { $query: "#{$and} and #{$query}"; }
+    @else { $query: $and; }
+  }
+
+  // 출력
+  @if $query == "" {
+    @content;
+  } @else {
+    @media #{$query} { @content; }
+  }
+}
+
+// 5) 편의 믹스인들
+@mixin up($from) {
+  @include respond($from) { @content; }
+}
+
+@mixin down($until) {
+  @include respond(null, $until) { @content; }
+}
+
+@mixin between($from, $until) {
+  @include respond($from, $until) { @content; }
+}
+
+@mixin only($name) {
+  $next: _next-bp($name);
+  @if $next == null {
+    @include up($name) { @content; }
+  } @else {
+    @include between($name, $next) { @content; }
+  }
+}
+
+// 6) 옵션: 방향 조건 예시
+@mixin landscape-up($from) {
+  @include respond($from, null, "screen and (orientation: landscape)") { @content; }
+}

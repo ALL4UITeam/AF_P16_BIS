@@ -4,189 +4,31 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>LIVE BUS</title>
+	<title>BIS</title>
 	<link rel="stylesheet" href="styles.css" />
 	<link rel="stylesheet" href="./assets/fonts/esamanru.css">
 	<link rel="stylesheet" href="./assets/fonts/Freesentation.css">
 	<link rel="stylesheet" href="./lib/simplebar/simplebar.css">
-	<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
-	<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-	<script src="./lib/simplebar/simplebar.min.js"></script>  <script type="module" src="./assets/js/index2.js"></script>
+	<link rel="stylesheet" href="./lib/jQuery-ui/jquery-ui.css">
+	<script src="./lib/jQuery/1.12.3/jquery.min.js"></script>
+	<script src="./lib/jQuery-ui/jquery-ui.min.js"></script>
+	<script src="./lib/simplebar/simplebar.min.js"></script>
+	<script src="./lib/GaugeMeter.js"></script>
+	<script src="./lib/interact.min.js"></script>  <script type="module" src="./assets/js/index2.js"></script>
   <link rel="stylesheet" href="./assets/css/index.css">
 </head>
 
 <body>
 	
 	<div class="Map">
-		
-		
-		<!-- 좌측 사이드바 -->
-		<aside class="sidenav map--side" aria-label="주 메뉴">
-		    <div class="sidenav__logo">
-		        <a href=""><img src="./assets/images/dash/white-logo.png" alt=""></a>
-		    </div>
-		    <nav class="sidenav__nav" data-simplebar>
-		        <details class="nav-sec">
-		            <summary class="sec01">
-		                <span><i class="icon"></i>대시보드</span>
-		            </summary>
-		            <details class="nav-sub">
-		                <summary>대시보드</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">대시보드</a></li>
-		            </details>
-		        </details>
-		        <details class="nav-sec">
-		            <summary class="sec02">
-		                <span><i class="icon"></i>지도서비스</span>
-		            </summary>
-		            <details class="nav-sub">
-		                <summary>버스</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">운행형황(노선)</a></li>
-		                    <li><a href="#">운행현황(정류장)</a></li>
-		                    <li><a href="#">버스활동</a></li>
-		                </ul>
-		            </details>
-		            <details class="nav-sub">
-		                <summary>정류장</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">정류장</a></li>
-		                </ul>
-		            </details>
-		            <details class="nav-sub">
-		                <summary>노선</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">정류장</a></li>
-		                </ul>
-		            </details>
-		        </details>
-		
-		        <details class="nav-sec" open>
-		            <summary class="sec03">
-		                <span><i class="icon"></i>관리</span>
-		            </summary>
-		
-		            <details class="nav-sub" open>
-		                <summary>운행 관리</summary>
-		                <ul class="nav-list">
-		                    <li class="is-active"><a href="#">배차관리</a></li>
-		                    <li><a href="#">노선별이력관리</a></li>
-		                    <li><a href="#">운행버스 현황</a></li>
-		                    <li><a href="#">단말기 현황</a></li>
-		                </ul>
-		            </details>
-		
-		            <details class="nav-sub">
-		                <summary>단말기 관리</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">단말기 현황</a></li>
-		                    <li><a href="#">단말기 관리</a></li>
-		                </ul>
-		            </details>
-		
-		            <details class="nav-sub">
-		                <summary>BIT 관리</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">BIT 대시보스</a></li>
-		                    <li><a href="#">BIT 기기 관리</a></li>
-		                    <li><a href="#">BIT 시나리오</a></li>
-		                    <li><a href="#">BIT 광고 관리</a></li>
-		                </ul>
-		            </details>
-		
-		            <details class="nav-sub">
-		                <summary>시스템 관리</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">사용자 관리</a></li>
-		                    <li><a href="#">그룹 관리</a></li>
-		                    <li><a href="#">메뉴 관리</a></li>
-		                    <li><a href="#">권한 관리</a></li>
-		                    <li><a href="#">코드 관리</a></li>
-		                    <li><a href="#">도움말</a></li>
-		                    <li><a href="#">유지관리 업체</a></li>
-		                </ul>
-		            </details>
-		
-		            <details class="nav-sub">
-		                <summary>웹서비스 관리</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">공지사항 관리</a></li>
-		                    <li><a href="#">연계 현황</a></li>
-		                    <li><a href="#">연계 키 관리</a></li>
-		                    <li><a href="#">접속 통계</a></li>
-		                    <li><a href="#">이용 통계</a></li>
-		                </ul>
-		            </details>
-		            <details class="nav-sub">
-		                <summary>서비스 정보</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">공지사항 관리</a></li>
-		                    <li><a href="#">연계 현황</a></li>
-		                    <li><a href="#">연계 키 관리</a></li>
-		                    <li><a href="#">접속 통계</a></li>
-		                    <li><a href="#">이용 통계</a></li>
-		                </ul>
-		            </details>
-		        </details>
-		
-		        <details class="nav-sec">
-		            <summary class="sec04">
-		                <span><i class="icon"></i>통계</span>
-		            </summary>
-		            <details class="nav-sub">
-		                <summary>운행 통계</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">운행 이력 관리</a></li>
-		                    <li><a href="#">운행 달력 보기</a></li>
-		                    <li><a href="#">기간별 운행 통계</a></li>
-		                    <li><a href="#">돌발 상황 통계</a></li>
-		                </ul>
-		            </details>
-		            <details class="nav-sub">
-		                <summary>감지 통계</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">차량별 이벤트 수집율</a></li>
-		                    <li><a href="#">노선별 배차간격</a></li>
-		                    <li><a href="#">노선별 정류소 감지율</a></li>
-		                </ul>
-		            </details>
-		        </details>
-		
-		        <details class="nav-sec">
-		            <summary class="sec05">
-		                <span><i class="icon"></i>알림</span>
-		            </summary>
-		            <details class="nav-sub">
-		                <summary>버스 수신 이상</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">버스 수신 이상</a></li>
-		                </ul>
-		            </details>
-		            <details class="nav-sub">
-		                <summary>BIT 수신 이상</summary>
-		                <ul class="nav-list">
-		                    <li><a href="#">BIT 수신 이상</a></li>
-		                </ul>
-		            </details>
-		        </details>
-		    </nav>
-		</aside>        <!-- 툴 -->
+        <!-- 툴 -->
         <div class=" Map--mode__top">
             <div class="Map--mode">
                 <button type="button" class=" btn--mode active" data-toggle data-group="mapModeTop">일반</button>
                 <button type="button" class=" btn--mode" data-toggle data-group="mapModeTop">위성</button>
             </div>
         </div>
-        <div class="Map--mode__bottom">
-            <div class="Map--mode">
-                <button type="button" class=" btn--mode location" title="위치"></button>
-            </div>
-            <div class="Map--mode zoom">
-                <button type="button" class=" btn--mode zoomin" title="확대" ></button>
-                <button type="button" class=" btn--mode zoomout" title="축소"></button>
-            </div>
-        </div>
+
         <!-- 패널 -->
         <div class="panel--wrap">
             <div class="panel--header">
@@ -197,6 +39,31 @@
                     <a href=""><img src="./assets/images/logo.png" alt="로고"></a>
                 </h1>  
             </div>
+            <div class="wGrInfo">
+					<!-- 그래프 -->
+					<div class="wGraphWrap">
+						<div class="chartBox">
+							<div class="GaugeMeter" id="PreviewGaugeMeter_1" data-percent="88" data-size="55" data-color="#6B4ACA" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9" data-label="ug/m3" data-style="Arch"  data-label_color="#83838D"></div>
+				
+							<div class="txtInfo">
+								<p>좋음</p>
+								<p>초미세먼지</p>									
+							</div>
+						</div>
+				
+						<div class="chartBox">
+							<div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="50" data-size="55" data-color="#6B4ACA" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9"  data-label="ug/m3"  data-style="Arch"  data-label_color="#83838D"></div>
+				
+							<div class="txtInfo">
+								<p>좋음</p>
+								<p>미세먼지</p>									
+							</div>
+						</div>
+					</div>
+					<!-- 그래프 -->
+				
+					<p class="exTxt">비 예보</p>
+				</div>
             <div class="panel--mid">
                 <div class="tab--nav">
                     <button class="tab--item active" data-tab="bus">버스</button>
@@ -592,67 +459,5 @@
         </div>
 	</div>
 </body>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const tabs = document.querySelectorAll(".tab--item");
-        const panels = document.querySelectorAll(".tab--panel");
-
-        tabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                const target = tab.getAttribute("data-tab");
-
-                // 탭 버튼 활성화 처리
-                tabs.forEach(t => t.classList.remove("active"));
-                tab.classList.add("active");
-
-                // 패널 보이기/숨기기
-                panels.forEach(panel => {
-                    panel.classList.remove("active");
-                    if (panel.id === target) {
-                        panel.classList.add("active");
-                    }
-                });
-            });
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const burgerBtn = document.querySelector(".burger-btn");
-        const map = document.querySelector(".Map");
-
-        if (burgerBtn && map) {
-            burgerBtn.addEventListener("click", function () {
-                map.classList.toggle("nav-open");
-
-                if (map.classList.contains("nav-open")) {
-                    if (!map.querySelector(".dimmed")) {
-                        const dimmed = document.createElement("div");
-                        dimmed.classList.add("dimmed");
-                        map.appendChild(dimmed);
-
-                        // DOM 추가 후 강제로 리플로우 → 애니메이션 시작
-                        requestAnimationFrame(() => {
-                            dimmed.classList.add("show");
-                        });
-
-                        dimmed.addEventListener("click", function () {
-                            map.classList.remove("nav-open");
-                            dimmed.classList.remove("show");
-                            setTimeout(() => dimmed.remove(), 300); // transition 끝난 후 제거
-                        });
-                    }
-                } else {
-                    const dimmed = map.querySelector(".dimmed");
-                    if (dimmed) {
-                        dimmed.classList.remove("show");
-                        setTimeout(() => dimmed.remove(), 300);
-                    }
-                }
-            });
-        }
-    });
-</script>
-
 
 </html>

@@ -1,1 +1,1 @@
-console.log('Hello Vite!');
+import interact from '@interactjs/interactjs';

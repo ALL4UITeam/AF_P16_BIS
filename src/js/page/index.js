@@ -1,76 +1,113 @@
+// Tab
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tab--item");
+    const panels = document.querySelectorAll(".tab--panel");
 
-import { buttonClick, toggleTab } from '../common/ui.js'
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            const target = tab.getAttribute("data-tab");
 
-// sideNav
-document.querySelectorAll('.nav-sec').forEach((sec) => {
-		const summary = sec.querySelector('summary');
-		if (!summary) return;
+            // 탭 버튼 활성화 처리
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
 
-		const addCaps = () => {
-			if (!summary.querySelector('.round-top')) {
-				summary.insertAdjacentHTML(
-					'afterbegin',
-					'<em class="round-top" aria-hidden="true"></em>' +
-					'<em class="round-bottom" aria-hidden="true"></em>'
-				);
-			}
-		};
-		const removeCaps = () => {
-			summary.querySelectorAll('.round-top, .round-bottom').forEach(el => el.remove());
-		};
-		const sync = () => (sec.open ? addCaps() : removeCaps());
+            // 패널 보이기/숨기기
+            panels.forEach(panel => {
+                panel.classList.remove("active");
+                if (panel.id === target) {
+                    panel.classList.add("active");
+                }
+            });
+        });
+    });
+});
 
-		sync();
-		sec.addEventListener('toggle', sync);
+$(document).ready(function (){
+    $('.GaugeMeter').gaugeMeter();
 });
 
 
-//Modal
-document.addEventListener("DOMContentLoaded", () => {
-  function openModal(id) {
-    document.getElementById(id).classList.add("active");
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.remove("active");
-  }
+const vh = () => window.innerHeight;
+const sheet  = document.querySelector('.sheet');
+// const handle = document.querySelector('.sheet-handle'); // ← 이제 불필요하면 제거
 
-  window.openModal = openModal;
-  window.closeModal = closeModal;
+const PEEK = 80;
 
-  // form 모달이 많아 불편해서 제거 
-  // 배경 클릭 시 닫기
-  // document.addEventListener("click", function(e) {
-  //   if (e.target.classList.contains("modal")) {
-  //     e.target.classList.remove("active");
-  //   }
-  // });
+function setY(el, y, anim=true){
+  const floor = vh() - PEEK;                 // 하단 한계: 피크 위치
+  const clamped = Math.max(0, Math.min(y, floor));
+  el.classList.toggle('anim', !!anim);
+  el.style.transform = `translateY(${clamped}px)`;
+  return clamped;
+}
 
-  // ESC 키로 닫기
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") {
-      document.querySelectorAll(".modal.active").forEach(modal => {
-        modal.classList.remove("active");
-      });
-    }
-  });
-});	
+function snaps(){
+  return [0, vh()-PEEK]; // 열림 / 피크
+}
+function nearest(y){
+  const s = snaps();
+  return s.reduce((a,b)=> Math.abs(b-y) < Math.abs(a-y) ? b : a, s[0]);
+}
 
+// --- (1) 추가: 유틸 2개 ---
+function getClientY(e){ return e.client?.y ?? e.clientY ?? e.pageY ?? 0; }
+function getStartTarget(e){
+  const raw = e.interaction?.downEvent?.target || e.downEvent?.target || e.target || null;
+  return raw && raw.nodeType !== 1 ? raw.parentElement : raw;
+}
 
-document.addEventListener("DOMContentLoaded", function () {
-  const toggles = document.querySelectorAll("[data-toggle]");
+// 초기 위치: 피크
+addEventListener('DOMContentLoaded', () => setY(sheet, vh()-PEEK, false));
 
-  toggles.forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      const group = toggle.dataset.group;
+// 리사이즈 시 현재 위치만 안전 보정
+addEventListener('resize', () => {
+  const m = sheet.style.transform.match(/[-\d.]+/);
+  const ty = m ? parseFloat(m[0]) : vh();
+  setY(sheet, Math.min(ty, vh()), false);
+});
 
-      if (group) {
-        document.querySelectorAll(`[data-group="${group}"]`).forEach(el => {
-          el.classList.remove("active");
-        });
-        toggle.classList.add("active");
-      } else {
-        toggle.classList.toggle("active");
+// --- (2) 교체: 시트 전체 드래그 ---
+interact('.sheet').draggable({
+  inertia: false,
+  listeners: {
+    start(e){
+      const el = e.target;
+      const content = el.querySelector('.sheet-content');
+      const m = el.style.transform.match(/[-\d.]+/);
+      const curTy = m ? parseFloat(m[0]) : vh();
+
+      const startTarget = getStartTarget(e);
+      if (startTarget && content && content.contains(startTarget) && content.scrollTop > 0) {
+        e.interaction.stop();
+        return;
       }
-    });
-  });
+
+      el.classList.remove('anim');
+      e.interaction.el = el;
+      e.interaction.content = content;
+      e.interaction.sy = getClientY(e);
+      e.interaction.ty = curTy;
+      e.interaction.startedInContent = !!(startTarget && content && content.contains(startTarget));
+    },
+    move(e){
+      const el = e.interaction.el;
+      if (!el) return;
+
+      const cy = getClientY(e);
+      const dy = cy - e.interaction.sy;
+
+      if (e.interaction.startedInContent && e.interaction.content && e.interaction.content.scrollTop > 0) {
+        e.interaction.sy = cy;
+        return;
+      }
+
+      e.interaction.ty = setY(el, e.interaction.ty + dy, false);
+      e.interaction.sy = cy;
+    },
+    end(e){
+      const el = e.interaction.el;
+      if (!el) return;
+      setY(el, nearest(e.interaction.ty), true);
+    }
+  }
 });
