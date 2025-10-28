@@ -35,11 +35,14 @@ $(document).ready(function (){
 const vh = () => window.innerHeight;
 
 const PEEK = 80; // 피크 높이(px) — 한 곳에서만 관리
-const DEADZONE_PX = 3;      // 미세 떨림 억제 (작게)
-const FLICK_VEL   = 1.8;    // px/ms 이상이면 플릭 (빡빡)
-const MIN_DUR     = 80;     // 최소 애니 시간 (빠르게)
-const MAX_DUR     = 180;    // 최대 애니 시간 (빠르게)
-const SNAP_BIAS   = 12;     // 중간값에서 아래로 12px만 더 가면 피크로
+const DEADZONE_PX   = 2;    // 미세 떨림 억제(작게)
+const INTENT_VEL    = 0.6;  // px/ms | 이 속도 넘으면 방향 의도 확정
+const INTENT_DIST   = 14;   // px    | 총 이동이 이만큼 넘으면 의도 확정
+const DIR_BIAS_PX   = 24;   // px    | 느린 드래그일 때도 "마지막 방향" 쪽으로 중간점 바이어스
+const MIN_DUR       = 80;
+const MAX_DUR       = 180;
+
+
 
 function setY(el, y, anim = true) {
   const floor = vh() - PEEK; // 하단 한계: 피크 위치
@@ -86,24 +89,26 @@ document.addEventListener("DOMContentLoaded", () => {
   interact('.sheet').draggable({
   allowFrom: '.sheet-handle',
   ignoreFrom: '.sheet-content',
-  inertia: false, // 플릭 관성 대신 "즉시 스냅" 감성으로 빠르게
+  inertia: false, // 의도 스냅을 빠르게
   listeners: {
     start(e){
       const el = e.target;
       el.classList.remove('anim');
 
       const m = el.style.transform.match(/[-\d.]+/);
-      e.interaction.el   = el;
-      e.interaction.ty   = m ? parseFloat(m[0]) : vh();
-      e.interaction.sy   = getClientY(e);
-      e.interaction.moved = 0;
-      e.interaction.lastVy = 0;
+      e.interaction.el      = el;
+      e.interaction.ty      = m ? parseFloat(m[0]) : vh();
+      e.interaction.sy      = getClientY(e);
+      e.interaction.moved   = 0;
+      e.interaction.lastVy  = 0;
+      e.interaction.totalDy = 0;   // 총 이동량(의도 판정용)
     },
     move(e){
       const el = e.interaction.el;
       if (!el) return;
 
       el.classList.remove('anim');
+
       const cy = getClientY(e);
       const dy = cy - e.interaction.sy;
 
@@ -114,11 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // 속도(px/ms)
+      // 속도/누적 이동 추적
       const vy = e.dt ? (dy / e.dt) : 0;
-      e.interaction.lastVy = vy;
+      e.interaction.lastVy  = vy;
+      e.interaction.totalDy += dy;
 
-      // 라버밴드(상단 저항) — 더 빳빳하게
+      // 상단 라버밴드(원한다면 유지)
       let next = e.interaction.ty + dy;
       if (next < 0) {
         const over = -next;
@@ -135,27 +141,32 @@ document.addEventListener("DOMContentLoaded", () => {
       const cur = e.interaction.ty;
       const [openY, peekY] = snaps();
 
-      // 1) 빠른 플릭이면 방향대로 과감히 결정
-      let target;
-      if (Math.abs(e.interaction.lastVy) > FLICK_VEL) {
-        target = (e.interaction.lastVy < 0) ? openY : peekY;
-      } else {
-        // 2) 느린 드래그: 중간값에서 아래로 SNAP_BIAS만 넘으면 피크
-        const mid = (openY + peekY) / 2;
-        target = (cur > mid - SNAP_BIAS) ? peekY : openY;
+      // === 1) 방향 의도 강제 ===
+      // 위로 끌었으면(빠르거나/멀거나) → 무조건 openY
+      if (e.interaction.lastVy < -INTENT_VEL || e.interaction.totalDy < -INTENT_DIST) {
+        snapTo(openY);
+        return;
+      }
+      // 아래로 끌었으면(빠르거나/멀거나) → 무조건 peekY
+      if (e.interaction.lastVy >  INTENT_VEL || e.interaction.totalDy >  INTENT_DIST) {
+        snapTo(peekY);
+        return;
       }
 
-      const dist = Math.abs(target - cur);
-      // 거리에 비례하되 훨씬 짧게
-      const dur = Math.max(MIN_DUR, Math.min(MAX_DUR, Math.round(dist * 0.45)));
+      // === 2) 느린 드래그: 마지막 방향에 바이어스 주기 ===
+      const mid  = (openY + peekY) / 2;
+      const bias = (e.interaction.totalDy < 0 ? -DIR_BIAS_PX : DIR_BIAS_PX);
+      const target = (cur > mid + bias) ? peekY : openY;
+      snapTo(target);
 
-      el.style.transition = `transform ${dur}ms cubic-bezier(.25,.9,.2,1)`;
-      el.classList.add('anim');
-      setY(el, target, true);
-
-      el.addEventListener('transitionend', () => {
-        el.style.transition = '';
-      }, { once: true });
+      function snapTo(targetY){
+        const dist = Math.abs(targetY - cur);
+        const dur  = Math.max(MIN_DUR, Math.min(MAX_DUR, Math.round(dist * 0.4)));
+        el.style.transition = `transform ${dur}ms cubic-bezier(.25,.9,.2,1)`;
+        el.classList.add('anim');
+        setY(el, targetY, true);
+        el.addEventListener('transitionend', () => { el.style.transition=''; }, { once:true });
+      }
     }
   }
 });
