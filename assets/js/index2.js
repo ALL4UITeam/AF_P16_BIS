@@ -57,10 +57,11 @@ $(document).ready(function() {
 });
 const vh = () => window.innerHeight;
 const PEEK = 80;
-const DEADZONE_PX = 6;
-const FLICK_VEL = 1.2;
-const MIN_DUR = 140;
-const MAX_DUR = 320;
+const DEADZONE_PX = 3;
+const FLICK_VEL = 1.8;
+const MIN_DUR = 80;
+const MAX_DUR = 180;
+const SNAP_BIAS = 12;
 function setY(el, y, anim = true) {
   const floor = vh() - PEEK;
   const clamped = Math.max(0, Math.min(y, floor));
@@ -70,10 +71,6 @@ function setY(el, y, anim = true) {
 }
 function snaps() {
   return [0, vh() - PEEK];
-}
-function nearest(y) {
-  const s = snaps();
-  return s.reduce((a, b) => Math.abs(b - y) < Math.abs(a - y) ? b : a, s[0]);
 }
 function getClientY(e) {
   var _a;
@@ -96,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
   interact(".sheet").draggable({
     allowFrom: ".sheet-handle",
     ignoreFrom: ".sheet-content",
-    inertia: true,
-    // ← 관성 켜기(플릭 시 move가 추가로 더 들어옵니다)
+    inertia: false,
+    // 플릭 관성 대신 "즉시 스냅" 감성으로 빠르게
     listeners: {
       start(e) {
         const el = e.target;
@@ -106,8 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.interaction.el = el;
         e.interaction.ty = m ? parseFloat(m[0]) : vh();
         e.interaction.sy = getClientY(e);
-        e.interaction.lastVy = 0;
         e.interaction.moved = 0;
+        e.interaction.lastVy = 0;
       },
       move(e) {
         const el = e.interaction.el;
@@ -125,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let next = e.interaction.ty + dy;
         if (next < 0) {
           const over = -next;
-          next = -Math.pow(over, 0.85);
+          next = -Math.pow(over, 0.92);
         }
         e.interaction.ty = setY(el, next, false);
         e.interaction.sy = cy;
@@ -134,26 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const el = e.interaction.el;
         if (!el) return;
         const cur = e.interaction.ty;
-        const snapsArr = snaps();
+        const [openY, peekY] = snaps();
         let target;
         if (Math.abs(e.interaction.lastVy) > FLICK_VEL) {
-          target = e.interaction.lastVy < 0 ? snapsArr[0] : snapsArr[1];
+          target = e.interaction.lastVy < 0 ? openY : peekY;
         } else {
-          target = nearest(cur);
+          const mid = (openY + peekY) / 2;
+          target = cur > mid - SNAP_BIAS ? peekY : openY;
         }
         const dist = Math.abs(target - cur);
-        const dur = Math.max(
-          MIN_DUR,
-          Math.min(MAX_DUR, Math.round(dist * 0.65))
-        );
-        el.style.transition = `transform ${dur}ms cubic-bezier(.2,.8,.2,1)`;
+        const dur = Math.max(MIN_DUR, Math.min(MAX_DUR, Math.round(dist * 0.45)));
+        el.style.transition = `transform ${dur}ms cubic-bezier(.25,.9,.2,1)`;
         el.classList.add("anim");
         setY(el, target, true);
-        const tidy = () => {
+        el.addEventListener("transitionend", () => {
           el.style.transition = "";
-          el.removeEventListener("transitionend", tidy);
-        };
-        el.addEventListener("transitionend", tidy, { once: true });
+        }, { once: true });
       }
     }
   });
