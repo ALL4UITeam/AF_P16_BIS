@@ -1267,6 +1267,7 @@ body {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   padding: 12px 14px 24px;
+  touch-action: pan-y; /* 스크롤 있을 땐 스크롤 우선 */
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;

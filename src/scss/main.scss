@@ -136,6 +136,7 @@ body {
     .sheet-close{border:0; background:none; font-size:20px; cursor:pointer}
 
     .sheet-content{overflow:auto; -webkit-overflow-scrolling:touch; padding:12px 14px 24px;
-     overflow:auto;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;}
+     touch-action: pan-y;                  /* 스크롤 있을 땐 스크롤 우선 */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;}
