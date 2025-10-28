@@ -1,0 +1,329 @@
+
+.form-group{
+    display: flex;
+    align-items: center;
+    &.ti-top{
+        align-items: flex-start;
+        .form-ti{
+            padding-top: 5px;
+        }
+
+    }
+    .form-control{
+        flex:1;
+    }
+    & + .form-group{
+        margin-top: 10px;
+    }
+}
+.form-ti{
+    font-size: 15px;
+    color:#1d1d1d;
+    &.w100{
+        min-width: 100px;
+    }
+}
+
+// Text
+.form-control{
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #c6c6c6;
+    color:#1d1d1d;
+    font-size: 15px;
+    background-color: #fff;
+    &:focus {
+        border-color: #005bac;
+    }
+    &::placeholder{
+        font-weight: 300;
+    }
+}
+
+// Checkbox
+.checkbox,
+.radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 12px 6px 0;
+}
+
+.checkbox__label,
+.radio__label {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+}
+
+// checkbox
+.checkbox__input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+    &::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        transform: scale(0);
+        transition: transform .12s ease-in-out;
+        background: #fff;
+        mask: url("data:image/svg+xml;utf8,\
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'>\
+        <path d='M20.285 6.709a1 1 0 0 1 .006 1.414l-9.2 9.2a1 1 0 0 1-1.414 0l-5.0-5.0a1 1 0 1 1 1.414-1.414l4.293 4.293 8.493-8.493a1 1 0 0 1 1.408 0z'/>\
+      </svg>") center / contain no-repeat;
+    }
+    &:hover:not(:disabled) {
+        border-color: #94a3b8;
+    }
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.25);
+        border-color: #1976d2;
+    }
+    &:checked {
+        background: #1976d2;
+        border-color: #1976d2;
+        &::before {
+            transform: scale(1);
+        }
+        &:hover {
+            background: #1565c0;
+            border-color: #1565c0;
+        }
+    }
+    &:indeterminate {
+        background: #1976d2;
+        border-color: #1976d2;
+        &::before {
+            mask: none;
+            width: 10px;
+            height: 2px;
+            background: #fff;
+            border-radius: 1px;
+            transform: scale(1);
+        }
+    }
+    &:disabled {
+        cursor: not-allowed;
+        background: #f8fafc;
+        border-color: #e5e7eb;
+        &+.checkbox__label {
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+    }
+}
+
+// Radio
+.radio__input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 50%;
+    background: #fff;
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+    &::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: transform .12s ease-in-out;
+        background: #fff;
+    }
+    &:hover:not(:disabled) {
+        border-color: #94a3b8;
+    }
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.25);
+        border-color: #1976d2;
+    }
+    &:checked {
+        background: #1976d2;
+        border-color: #1976d2;
+        &::before {
+            background: #fff;
+            transform: scale(1);
+        }
+        &:hover {
+            background: #1565c0;
+            border-color: #1565c0;
+        }
+    }
+    &:disabled {
+        cursor: not-allowed;
+        background: #f8fafc;
+        border-color: #e5e7eb;
+        &+.radio__label {
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+    }
+}
+
+
+/* 업로드 영역 */
+.upload-inner{
+    width: 100%;
+}
+.upload-box {
+    border: 1px dashed #c6c6c6;
+    background: #f9fafb;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 12px;
+    p{
+        font-weight: 300;
+        color:#9c9b9b;
+    }
+    .btn-upload {
+        margin-top: 12px;
+        padding: 6px 16px;
+        font-size: 14px;
+        color: #fff;
+        background: #999999;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+            background: #555555;
+        }
+    }
+}
+
+/* 파일 리스트 */
+.file-list {
+    .file-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        border: 1px solid #c6c6c6;
+        border-radius: 4px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .file-icon {
+                img{
+                    vertical-align:middle;
+                }
+            }
+
+            .file-name {
+                font-weight: 300;
+                color: #111827;
+            }
+
+            .file-ext {
+                color: #6b7280;
+                font-size: 13px;
+            }
+        }
+
+        .btn-download {
+            background: none;
+            border: none;
+            cursor: pointer;
+            img{
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.form{
+    &--tbl{
+        &__header{
+            display: flex;
+            gap:10px;
+            margin-bottom: 30px;
+            select{
+                width: 150px;
+                height: 48px;
+            }
+        }
+        &__util{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            select{
+                width: 150px;
+                height: 48px;
+            }
+            .total{
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap:10px;
+                span{
+                    display: inline-block;
+                    margin: 0 2px;
+                    color:#047bb6;
+                    font-weight: bold;
+                }
+            }
+            .util-btn{
+                display: flex;
+                align-items: center;
+                gap:10px;
+            }
+        }
+    }
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 400px; /* 원하는 너비 */
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    input {
+        flex: 1;
+        padding: 10px 12px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+    }
+
+    .search-btn {
+        padding: 0 12px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #555;
+
+        &:hover {
+        color: #000;
+        }
+    }
+}

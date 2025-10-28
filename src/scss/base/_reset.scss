@@ -1,0 +1,61 @@
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 500;
+    color:#1d1d1d;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeSpeed;
+
+}
+
+
+img,
+picture,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: anywhere;
+}
+
+button,a{
+    cursor: pointer;
+}
+/* 7) 애니메이션/스무스 스크롤 접근성 */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

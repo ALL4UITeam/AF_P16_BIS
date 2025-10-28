@@ -1,0 +1,10 @@
+// 아이콘 mixin 정의
+@mixin icon-style($icon-url, $width: 2.4rem, $height: 2.4rem) {
+    display: inline-block;
+    background-image: url($icon-url);
+    width: $width;
+    height: $height;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+}

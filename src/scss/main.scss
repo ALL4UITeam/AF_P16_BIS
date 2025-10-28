@@ -1,0 +1,57 @@
+@use 'abstracts/variables'as *;
+@use 'abstracts/functions'as *;
+@use 'abstracts/mixins'as *;
+
+
+
+@use 'base/root';
+@use 'base/reset';
+@use 'base/header';
+
+@use 'components/modal';
+@use 'components/button';
+@use 'components/card';
+@use 'components/form';
+@use 'components/login';
+@use 'components/table';
+@use 'components/map';
+@use 'components/icon';
+@use 'components/paging';
+
+
+
+
+/* ====== Design tokens ====== */
+$font-system: 'Freesentation',
+Segoe UI,
+Roboto,
+Noto Sans KR,
+Apple SD Gothic Neo,
+"Malgun Gothic",
+Helvetica,
+Arial,
+"Apple Color Emoji",
+"Segoe UI Emoji";
+
+$line: #dddddd;
+
+$sidebar-w: 260px;
+$topbar-h: 64px;
+
+body {
+    min-width: 1200px;
+    height: 100vh;
+    font-family: $font-system;
+}
+
+.a11y-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
