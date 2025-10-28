@@ -57,11 +57,12 @@ $(document).ready(function() {
 });
 const vh = () => window.innerHeight;
 const PEEK = 80;
-const DEADZONE_PX = 3;
-const FLICK_VEL = 1.8;
+const DEADZONE_PX = 2;
+const INTENT_VEL = 0.6;
+const INTENT_DIST = 14;
+const DIR_BIAS_PX = 24;
 const MIN_DUR = 80;
 const MAX_DUR = 180;
-const SNAP_BIAS = 12;
 function setY(el, y, anim = true) {
   const floor = vh() - PEEK;
   const clamped = Math.max(0, Math.min(y, floor));
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allowFrom: ".sheet-handle",
     ignoreFrom: ".sheet-content",
     inertia: false,
-    // 플릭 관성 대신 "즉시 스냅" 감성으로 빠르게
+    // 의도 스냅을 빠르게
     listeners: {
       start(e) {
         const el = e.target;
@@ -105,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.interaction.sy = getClientY(e);
         e.interaction.moved = 0;
         e.interaction.lastVy = 0;
+        e.interaction.totalDy = 0;
       },
       move(e) {
         const el = e.interaction.el;
@@ -119,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const vy = e.dt ? dy / e.dt : 0;
         e.interaction.lastVy = vy;
+        e.interaction.totalDy += dy;
         let next = e.interaction.ty + dy;
         if (next < 0) {
           const over = -next;
@@ -132,21 +135,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!el) return;
         const cur = e.interaction.ty;
         const [openY, peekY] = snaps();
-        let target;
-        if (Math.abs(e.interaction.lastVy) > FLICK_VEL) {
-          target = e.interaction.lastVy < 0 ? openY : peekY;
-        } else {
-          const mid = (openY + peekY) / 2;
-          target = cur > mid - SNAP_BIAS ? peekY : openY;
+        if (e.interaction.lastVy < -0.6 || e.interaction.totalDy < -14) {
+          snapTo(openY);
+          return;
         }
-        const dist = Math.abs(target - cur);
-        const dur = Math.max(MIN_DUR, Math.min(MAX_DUR, Math.round(dist * 0.45)));
-        el.style.transition = `transform ${dur}ms cubic-bezier(.25,.9,.2,1)`;
-        el.classList.add("anim");
-        setY(el, target, true);
-        el.addEventListener("transitionend", () => {
-          el.style.transition = "";
-        }, { once: true });
+        if (e.interaction.lastVy > INTENT_VEL || e.interaction.totalDy > INTENT_DIST) {
+          snapTo(peekY);
+          return;
+        }
+        const mid = (openY + peekY) / 2;
+        const bias = e.interaction.totalDy < 0 ? -24 : DIR_BIAS_PX;
+        const target = cur > mid + bias ? peekY : openY;
+        snapTo(target);
+        function snapTo(targetY) {
+          const dist = Math.abs(targetY - cur);
+          const dur = Math.max(MIN_DUR, Math.min(MAX_DUR, Math.round(dist * 0.4)));
+          el.style.transition = `transform ${dur}ms cubic-bezier(.25,.9,.2,1)`;
+          el.classList.add("anim");
+          setY(el, targetY, true);
+          el.addEventListener("transitionend", () => {
+            el.style.transition = "";
+          }, { once: true });
+        }
       }
     }
   });
