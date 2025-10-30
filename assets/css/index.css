@@ -425,6 +425,11 @@ button, a {
   background: #fff;
   box-sizing: border-box;
 }
+@media (max-width: calc(768px - 0.02px)) {
+  .Map--mode {
+    display: none;
+  }
+}
 .Map--mode__top {
   position: absolute;
   top: 16px;
@@ -481,7 +486,7 @@ button, a {
 .dimmed {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(8, 8, 8, 0.5);
   z-index: 99;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -492,51 +497,71 @@ button, a {
 
 /* ========== panel - header  죄측 1뎁스 패널 리스트 ========== */
 .panel--wrap {
+  z-index: 100;
+  position: relative;
   width: 400px;
   height: 100%;
   background: #f6f7fb;
   border-radius: 0 50px 0 0;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--wrap {
+    width: 100%;
+    background: transparent;
+  }
+}
 
 .panel--header {
   position: relative;
-  height: 75px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 20px;
   padding: 20px 20px;
+  transition: all 0.3s;
 }
-.panel--header .logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--header {
+    gap: 10px;
+    padding: 10px;
+  }
 }
-
-/* ========== panel - 검색  죄측 1뎁스 패널 리스트 ========== */
-.panel--mid {
-  text-align: center;
-  padding: 0 20px 20px 20px;
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--header {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    background: #f6f7fb;
+    border-radius: 20px;
+  }
 }
-.panel--mid .panel--search {
+.panel--header .panel--search {
   display: flex;
+  width: 100%;
   justify-content: center;
   border: 1px solid #ddd;
   border-radius: 20px 10px 10px 10px;
   height: 48px;
 }
-.panel--mid .panel--search .search--input {
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--header .panel--search {
+    height: 40px;
+  }
+}
+.panel--header .panel--search .search--input {
   padding: 8px 15px;
   border: none;
   background: #f9f9f9;
   flex: 1;
   border-radius: 20px 0 0 10px;
 }
-.panel--mid .panel--search .search--input::placeholder {
+.panel--header .panel--search .search--input::placeholder {
   font-size: 15px;
   color: #8e8e8e;
 }
-.panel--mid .panel--search .search--button {
+.panel--header .panel--search .search--button {
   display: flex;
   align-items: center;
   padding: 8px 12px;
@@ -558,6 +583,11 @@ button, a {
   border-radius: 10px;
   padding: 20px;
   /* 미세먼지 그래프 */
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--wheather {
+    display: none;
+  }
 }
 .panel--wheather__today {
   display: flex;
@@ -666,7 +696,7 @@ button, a {
 }
 .panel--list .tab--panel {
   padding: 0 20px 20px;
-  height: calc(100% - 175px - 75px - 123px);
+  height: calc(100% - 175px - 75px - 126px);
 }
 .panel--list .panel--item {
   background: #fff;
@@ -1337,6 +1367,7 @@ button, a {
 }
 
 .no-data {
+  overflow: hidden;
   height: 100%;
   display: flex;
   align-items: center;
@@ -1485,7 +1516,7 @@ body {
 }
 
 :root {
-  --max-h: 92svh;
+  --max-h: 100svh;
   --min-peek: 80px;
   --radius: 16px;
 }
@@ -1499,63 +1530,46 @@ body {
   margin: 0;
 }
 
-.sheet {
-  position: fixed;
+.Map.is-sheet-open .panel--header {
+  top: 0;
   left: 0;
-  right: 0;
-  bottom: 30px;
-  z-index: 1000;
-  background: #fff;
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
-  /* 초기엔 실제 높이를 고정해서 계산이 맞게 */
-  height: var(--max-h);
-  /* ← 추가 */
-  max-height: var(--max-h);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
-  /* 여기! 100vh → var(--max-h) 로 교체 */
-  transform: translateY(calc(var(--max-h) - var(--min-peek)));
-  will-change: transform;
-  touch-action: none;
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  padding-bottom: env(safe-area-inset-bottom);
+  width: 100%;
+  border-radius: 0;
+  background: #e8f2fa;
 }
-.sheet--anim {
-  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.sheet-handle {
-  padding: 8px 0 6px;
-  display: grid;
-  place-items: center;
-  cursor: grab;
-}
-.sheet-handle .grip {
-  width: 44px;
-  height: 5px;
-  border-radius: 999px;
-  background: #d1d5db;
-}
-.sheet-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-top: 1px solid #eee;
-  touch-action: none;
-  /* 드래그 제스처 전용 */
-}
-.sheet-title {
-  font-size: 16px;
-  margin: 0;
-}
-.sheet-content {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 12px 14px 24px;
-  touch-action: pan-y;
-  /* 스크롤 있을 땐 스크롤 우선 */
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+@media (max-width: calc(768px - 0.02px)) {
+  .sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 1000;
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    height: 100svh;
+    max-height: calc(100svh - 125px);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
+    /* 여기! 100vh → var(--max-h) 로 교체 */
+    transform: translateY(calc(100svh - 200px));
+    will-change: transform;
+    touch-action: none;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .sheet--anim {
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .sheet-handle {
+    padding: 15px 0 15px;
+    display: grid;
+    place-items: center;
+    cursor: grab;
+    border-bottom: 1px solid #eee;
+  }
+  .sheet-handle .grip {
+    width: 44px;
+    height: 5px;
+    border-radius: 999px;
+    background: #d1d5db;
+  }
 }
