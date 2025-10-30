@@ -61,30 +61,6 @@ body {
 }
 
 
-/* md 이상 (min-width: 768px~) */
-.card {
-  
-  @include up(md) { }
-}
-
-/* lg 이하 (max-width: 1024px-) */
-.grid {
-  grid-template-columns: 1fr;
-  @include down(lg) { gap: 12px; }
-}
-
-/* md ~ xl 사이 */
-.title {
-  font-size: 18px;
-  @include between(md, xl) { font-size: 20px; }
-}
-
-/* sm only (sm ~ 다음 bp 직전) */
-.nav {
-  @include only(sm) { display: none; }
-}
-
-
 :root {
     --max-h: 100svh;
     --min-peek: 80px;
@@ -98,55 +74,4 @@ body {
 
 body {
     margin: 0;
-}
-
-.Map{
-    &.is-sheet-open{
-        .panel--header{
-            top: 0;           
-            left: 0;
-            width: 100%;
-            border-radius: 0;
-            background: #e8f2fa;
-        }
-        .panel--search{
-        }
-    }
-}
-.sheet {
-    @include down(md) { 
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0px;
-        z-index: 1000;
-        background: #fff;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        height: 100svh;
-        max-height: calc(100svh - 125px);
-        box-shadow: 0 -8px 24px rgba(0, 0, 0, .18);
-        /* 여기! 100vh → var(--max-h) 로 교체 */
-        transform: translateY(calc(100svh - 200px));
-
-        will-change: transform;
-        touch-action: none;
-        padding-bottom: env(safe-area-inset-bottom);
-        &--anim {
-            transition: transform .22s cubic-bezier(.2, .8, .2, 1)
-        }
-        &-handle {
-            padding: 15px 0 15px;
-            display: grid;
-            place-items: center;
-            cursor: grab;
-            border-bottom: 1px solid #eee;
-            .grip {
-                width: 44px;
-                height: 5px;
-                border-radius: 999px;
-                background: #d1d5db
-            }
-        }
-    }
 }
