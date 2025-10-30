@@ -1,51 +1,33 @@
-
-
-.btn{
-    width: 90px;
-    height: 48px;
-    border-radius: 5px;
-    border: none;
-    font-size: 17px;
-    &.primary {
-        background: #047bb6;
-        color: #fff;
+/* Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 15px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 12px;
+    letter-spacing: .2px;
+    border: 1px solid #e3e3e3;
+    background: #fff;
+    line-height: 1;
+    color: #374151;
+    &--muted {
+        color: #848484;
     }
-    &.danger {
-        background: #555555;
-        color: #fff;
+    &--blue {
+        border-color: var(--primary-color);
+        background: #dcedf4;
+        color: var(--primary-color);
     }
-    &.border-primary{
-        border: 1px solid #047bb6;
-        color: #047bb6;
-        background: #fff;
+    &--warn {
+        border-color: #ffe0a6;
+        background: #fff7ed;
+        color: #f59e0b;
     }
-}
-
-.round--btn {
-    width: 106px;
-    height: 42px;
-    line-height: 42px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.btn-group{
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 20px;
-    &.center{
-        justify-content: center;
-    }
-    &.between{
-        justify-content: space-between;
-    }
-    button{
-        & + button{
-            margin-left: 5px;
-        }
+    &--red {
+        border-color: #fb5852;
+        background: #fee9e9;
+        color: #fb5852;
     }
 }
-

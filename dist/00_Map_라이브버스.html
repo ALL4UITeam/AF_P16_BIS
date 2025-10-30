@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>BIS</title>
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="./assets/fonts/esamanru.css">
+	<link rel="stylesheet" href="./assets/fonts/Freesentation.css">
+	<link rel="stylesheet" href="./lib/simplebar/simplebar.css">
+	<link rel="stylesheet" href="./lib/jQuery-ui/jquery-ui.css">
+	<script src="./lib/jQuery/1.12.3/jquery.min.js"></script>
+	<script src="./lib/jQuery-ui/jquery-ui.min.js"></script>
+	<script src="./lib/simplebar/simplebar.min.js"></script>
+	<script src="./lib/GaugeMeter.js"></script>
+	<script src="./lib/interact.min.js"></script>  <script type="module" src="./assets/js/index2.js"></script>
+  <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+	
+	<div class="Map">
+        <!-- ========== 우측 툴  ==========-->
+        <div class=" Map--mode__top">
+            <div class="Map--mode">
+                <button type="button" class=" btn--mode active" data-toggle data-group="mapModeTop">일반</button>
+                <button type="button" class=" btn--mode" data-toggle data-group="mapModeTop">위성</button>
+            </div>
+        </div>
+
+        <!-- ========== 패널 - 죄측 1뎁스  ==========-->
+        <div class="panel--wrap">
+            <div class="panel--header">
+                <h1 class="logo">
+                    <a href=""><img src="./assets/images/logo.png" alt="로고"></a>
+                </h1>  
+            </div>
+            <div class="panel--mid">
+                <div class="panel--search">
+                    <input type="text" class="search--input" placeholder="정류장 이름(ID), 버스번호, 도착지를 입력하세요." />
+                    <button class="search--button"><img src="./assets/images/ico-search.png" alt=""></button>
+                </div>
+            </div>
+            <div class="panel--wheather">
+                <div class="panel--wheather__today">
+                    <div class="wheather-img">
+                        <img src="./assets/images/ico-wheather.png" alt="구름조금">
+                    </div>
+                    <div class="wheather-value">
+                        <strong>12°</strong>  
+                        <p>최고<strong>18°</strong></p>
+                        <p>최저<strong>9°</strong></p>
+                    </div>
+                </div>
+                <div class="panel--wheather__wGrInfo">
+                    <div>
+                        <!-- 그래프 -->
+                        <div class="wGraphWrap">
+                            <div class="chartBox">
+                                <div class="GaugeMeter" id="PreviewGaugeMeter_1" data-percent="88" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9" data-label="ug/m3" data-style="Arch"  data-label_color="#83838D"></div>
+                    
+                                <div class="txtInfo">
+                                    <p>좋음</p>
+                                    <p>초미세먼지</p>									
+                                </div>
+                            </div>
+                    
+                            <div class="chartBox">
+                                <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="50" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9"  data-label="ug/m3"  data-style="Arch"  data-label_color="#83838D"></div>
+                    
+                                <div class="txtInfo">
+                                    <p>좋음</p>
+                                    <p>미세먼지</p>									
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 그래프 -->
+                    </div>
+                
+                    <p class="exTxt">비 예보</p>
+                </div>
+            </div>
+            <div class="panel--list">
+                <div class="tab--container">
+                    <div class="tab--nav tab--btn__nav">
+                        <button class="tab--item active" data-tab="bus">라이브버스</button>
+                        <button class="tab--item" data-tab="station">정류장</button>
+                    </div>
+                    <div class="tab--content">
+                        <div class="tab--panel active" id="bus" data-simplebar>
+                            <!---- 패널 아이템 ---->
+                            <div class="panel--item is-active">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__number">32-5</span>
+                                </header>
+                                <footer class="panel--item__body">
+                                    <div class="panel--item__destination">
+                                        <span class="address">서울</span>
+                                        <span class="first">광명공영주차장</span>
+                                        <i class="icon arw" aris-hidden="true"></i>
+                                        <span class="last">남대문</span>
+                                    </div>
+                                </footer>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__number">32-5</span>
+                                </header>
+                                <footer class="panel--item__body">
+                                    <div class="panel--item__destination">
+                                        <span class="address">서울</span>
+                                        <span class="first">광명공영주차장</span>
+                                        <i class="icon arw" aris-hidden="true"></i>
+                                        <span class="last">남대문</span>
+                                    </div>
+                                </footer>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__number">32-5</span>
+                                </header>
+                                <footer class="panel--item__body">
+                                    <div class="panel--item__destination">
+                                        <span class="address">서울</span>
+                                        <span class="first">광명공영주차장</span>
+                                        <i class="icon arw" aris-hidden="true"></i>
+                                        <span class="last">남대문</span>
+                                    </div>
+                                </footer>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__number">32-5</span>
+                                </header>
+                                <footer class="panel--item__body">
+                                    <div class="panel--item__destination">
+                                        <span class="address">서울</span>
+                                        <span class="first">광명공영주차장</span>
+                                        <i class="icon arw" aris-hidden="true"></i>
+                                        <span class="last">남대문</span>
+                                    </div>
+                                </footer>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__number">32-5</span>
+                                </header>
+                                <footer class="panel--item__body">
+                                    <div class="panel--item__destination">
+                                        <span class="address">서울</span>
+                                        <span class="first">광명공영주차장</span>
+                                        <i class="icon arw" aris-hidden="true"></i>
+                                        <span class="last">남대문</span>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="tab--panel" id="station" data-simplebar>
+                            <div class="panel--item is-active">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__station">양천향교 앞</span>
+                                </header>
+                                <div class="panel--item--body">
+                                    <div class="station-info">
+                                        <dl>
+                                            <dt>정류장 ID</dt>
+                                            <dd>140053</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>노선번호</dt>
+                                            <dd>
+                                                <div class="flex">
+                                                    <span class="badge badge--blue">100</span>
+                                                    <span class="badge badge--blue">111-2</span>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__station">양천향교 앞</span>
+                                </header>
+                                <div class="panel--item--body">
+                                    <div class="station-info">
+                                        <dl>
+                                            <dt>정류장 ID</dt>
+                                            <dd>140053</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>노선번호</dt>
+                                            <dd>
+                                                <div class="flex">
+                                                    <span class="badge badge--blue">100</span>
+                                                    <span class="badge badge--blue">111-2</span>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__station">양천향교 앞</span>
+                                </header>
+                                <div class="panel--item--body">
+                                    <div class="station-info">
+                                        <dl>
+                                            <dt>정류장 ID</dt>
+                                            <dd>140053</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>노선번호</dt>
+                                            <dd>
+                                                <div class="flex">
+                                                    <span class="badge badge--blue">100</span>
+                                                    <span class="badge badge--blue">111-2</span>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel--item">
+                                <header class="panel--item__header">
+                                    <span class="panel--item__station">양천향교 앞</span>
+                                </header>
+                                <div class="panel--item--body">
+                                    <div class="station-info">
+                                        <dl>
+                                            <dt>정류장 ID</dt>
+                                            <dd>140053</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>노선번호</dt>
+                                            <dd>
+                                                <div class="flex">
+                                                    <span class="badge badge--blue">100</span>
+                                                    <span class="badge badge--blue">111-2</span>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 패널 - 좌측 2뎂스  ==========-->
+        <div class="panel--expand">
+            <div class="panel--expand__head">
+                <button class="close"></button>
+            </div>
+            <div class="panel--expand__content">
+                <div class="bus-type-inner">
+                    <div class="bus-type">
+                        <span class="bus-type-badge">간선</span>
+                        <span class="bus-type-label">32-5</span>
+                    </div>
+                </div>
+                <div class="bus-info-inner">
+                    <div class="bus-info">
+                        <dl>
+                            <dt>기점</dt>
+                            <dd>용인공영버스터미널.용인드마크데</dd>
+                        </dl>
+                        <dl>
+                            <dt>종점</dt>
+                            <dd>신평리</dd>
+                        </dl>
+                        <dl>
+                            <dt>운행시간</dt>
+                            <dd>
+                                평일 06:00~09:50<br>
+                                주말 06:00~09:50<br>
+                                공휴일 06:00~09:50
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>배차간격</dt>
+                            <dd>
+                                평일 120~150분<br>
+                                주말 120~125분<br>
+                                공휴일 120~125분
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="section--meta">
+                    <h2 class="section--meta__title">경로보기</h2>
+                
+                    <div class="section--meta__info">
+                        <span class="section--meta__status">1대 운행중</span>
+                        <span class="section--meta__timestamp">오후 01:55:36 기준</span>
+                        <button class="section--meta__refresh" aria-label="새로고침"></button>
+                    </div>
+                </div>
+                <div class="route-timeline-inner" data-simplebar>
+                    <!-- 타임라인 컨테이너 -->
+                    <div class="route-timeline">
+                        <div class="buses">
+                            <div class="bus" style="top: 20%;">
+                                <img src="./assets/images/blue-bus25@24.png" alt="">
+                                <div class="tooltip" aria-hidden="true">
+                                    <div>78아1514</div>
+                                    <div>저상</div>
+                                    <div class="green">여유</div>
+                                </div>
+                            </div>
+                            <div class="bus" style="top: 45%;">
+                                <img src="./assets/images/blue-bus25@24.png" alt="">
+                                <div class="tooltip" aria-hidden="true">
+                                    <div>78아1514</div>
+                                    <div>저상</div>
+                                    <div class="red">혼잡</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- 정류장 목록 -->
+                        <ol class="stops">
+                            <li class="stop">
+                                <div class="stop-marker"></div>
+                                <div class="stop-info">
+                                    <div class="stop-name">용인공영버스터미널</div>
+                                    <div class="stop-code">29434 | 04:30~23:30</div>
+                                    <div class="stop-status">도착 예정 정보 없음</div>
+                                </div>
+                            </li>
+                            <li class="stop">
+                                <div class="stop-marker"></div>
+                                <div class="stop-info">
+                                    <div class="stop-name">용인드마크데..</div>
+                                    <div class="stop-code">29435 | 04:30~23:30</div>
+                                    <div class="stop-status arrival">6분 20초</div>
+                                </div>
+                            </li>
+                            <li class="stop">
+                                <div class="stop-marker"></div>
+                                <div class="stop-info">
+                                    <div class="stop-name">용인드마크데..</div>
+                                    <div class="stop-code">29435 | 04:30~23:30</div>
+                                    <div class="stop-status">도착 예정 정보 없음</div>
+                                </div>
+                            </li>
+                            <li class="stop">
+                                <div class="stop-marker"></div>
+                                <div class="stop-info">
+                                    <div class="stop-name">용인드마크데..</div>
+                                    <div class="stop-code">29435 | 04:30~23:30</div>
+                                    <div class="stop-status">도착 예정 정보 없음</div>
+                                </div>
+                            </li>
+                            <li class="stop">
+                                <div class="stop-marker"></div>
+                                <div class="stop-info">
+                                    <div class="stop-name">용인드마크데..</div>
+                                    <div class="stop-code">29435 | 04:30~23:30</div>
+                                    <div class="stop-status">도착 예정 정보 없음</div>
+                                </div>
+                            </li>
+                            <li class="stop">
+                                <div class="stop-marker"></div>
+                                <div class="stop-info">
+                                    <div class="stop-name">용인드마크데..</div>
+                                    <div class="stop-code">29435 | 04:30~23:30</div>
+                                    <div class="stop-status">도착 예정 정보 없음</div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</body>
+
+</html>

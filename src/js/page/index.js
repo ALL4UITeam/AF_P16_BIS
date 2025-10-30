@@ -1,32 +1,71 @@
+
+import { buttonClick, toggleTab } from '../common/ui.js'
+
 // Tab
-document.addEventListener("DOMContentLoaded", function () {
-    const tabs = document.querySelectorAll(".tab--item");
-    const panels = document.querySelectorAll(".tab--panel");
-
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            const target = tab.getAttribute("data-tab");
-
-            // 탭 버튼 활성화 처리
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-
-            // 패널 보이기/숨기기
-            panels.forEach(panel => {
-                panel.classList.remove("active");
-                if (panel.id === target) {
-                    panel.classList.add("active");
-                }
-            });
-        });
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".tab--container").forEach(initTabGroup);
 });
 
+function initTabGroup(groupEl) {
+  const tabs   = groupEl.querySelectorAll(".tab--item");
+  const panels = groupEl.querySelectorAll(".tab--panel");
+
+  groupEl.addEventListener("click", (e) => {
+    const tab = e.target.closest(".tab--item");
+    if (!tab || !groupEl.contains(tab)) return;
+
+    const targetId = tab.getAttribute("data-tab");
+    if (!targetId) return;
+
+    tabs.forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
+
+    panels.forEach((panel) => {
+      panel.classList.toggle("active", panel.id === targetId);
+    
+    });
+  });
+}
+
+// Toggle
+document.addEventListener("DOMContentLoaded", function () {
+  const toggles = document.querySelectorAll("[data-toggle]");
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const group = toggle.dataset.group;
+
+      if (group) {
+        document.querySelectorAll(`[data-group="${group}"]`).forEach(el => {
+          el.classList.remove("active");
+        });
+        toggle.classList.add("active");
+      } else {
+        toggle.classList.toggle("active");
+      }
+    });
+  });
+});
+
+// wGraphWrap 그래프
 $(document).ready(function (){
     $('.GaugeMeter').gaugeMeter();
 });
 
 
+// 버스 tooltip
+// document.querySelectorAll('.bus').forEach($bus => {
+//   const plate = $bus.dataset.plate;
+//   const type  = $bus.dataset.type;
+//   const load  = $bus.dataset.load; // 여유/보통/혼잡 등
+
+//   const cls = load === '여유' ? 'ok' : load === '보통' ? 'warn' : 'bad';
+//   $bus.querySelector('.tooltip').innerHTML = `
+//     <div>${plate}</div>
+//     <div>${type}</div>
+//     <div class="load ${cls}">${load}</div>
+//   `;
+// });
 
 
 

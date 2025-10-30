@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>BIS</title>
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="./assets/fonts/esamanru.css">
+	<link rel="stylesheet" href="./assets/fonts/Freesentation.css">
+	<link rel="stylesheet" href="./lib/simplebar/simplebar.css">
+	<link rel="stylesheet" href="./lib/jQuery-ui/jquery-ui.css">
+	<script src="./lib/jQuery/1.12.3/jquery.min.js"></script>
+	<script src="./lib/jQuery-ui/jquery-ui.min.js"></script>
+	<script src="./lib/simplebar/simplebar.min.js"></script>
+	<script src="./lib/GaugeMeter.js"></script>
+	<script src="./lib/interact.min.js"></script>  <script type="module" src="./assets/js/index2.js"></script>
+  <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+	
+	<div class="Map">
+        <!-- ========== 우측 툴  ==========-->
+        <div class=" Map--mode__top">
+            <div class="Map--mode">
+                <button type="button" class=" btn--mode active" data-toggle data-group="mapModeTop">일반</button>
+                <button type="button" class=" btn--mode" data-toggle data-group="mapModeTop">위성</button>
+            </div>
+        </div>
+
+        <!-- ========== 패널 - 죄측 1뎁스  ==========-->
+        <div class="panel--wrap">
+            <div class="panel--header">
+                <h1 class="logo">
+                    <a href=""><img src="./assets/images/logo.png" alt="로고"></a>
+                </h1>  
+            </div>
+            <div class="panel--mid">
+                <div class="panel--search">
+                    <input type="text" class="search--input" placeholder="정류장 이름(ID), 버스번호, 도착지를 입력하세요." />
+                    <button class="search--button"><img src="./assets/images/ico-search.png" alt=""></button>
+                </div>
+            </div>
+            <div class="panel--wheather">
+                <div class="panel--wheather__today">
+                    <div class="wheather-img">
+                        <img src="./assets/images/ico-wheather.png" alt="구름조금">
+                    </div>
+                    <div class="wheather-value">
+                        <strong>12°</strong>  
+                        <p>최고<strong>18°</strong></p>
+                        <p>최저<strong>9°</strong></p>
+                    </div>
+                </div>
+                <div class="panel--wheather__wGrInfo">
+                    <div>
+                        <!-- 그래프 -->
+                        <div class="wGraphWrap">
+                            <div class="chartBox">
+                                <div class="GaugeMeter" id="PreviewGaugeMeter_1" data-percent="88" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9" data-label="ug/m3" data-style="Arch"  data-label_color="#83838D"></div>
+                    
+                                <div class="txtInfo">
+                                    <p>좋음</p>
+                                    <p>초미세먼지</p>									
+                                </div>
+                            </div>
+                    
+                            <div class="chartBox">
+                                <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="50" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9"  data-label="ug/m3"  data-style="Arch"  data-label_color="#83838D"></div>
+                    
+                                <div class="txtInfo">
+                                    <p>좋음</p>
+                                    <p>미세먼지</p>									
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 그래프 -->
+                    </div>
+                
+                    <p class="exTxt">비 예보</p>
+                </div>
+            </div>
+            <div class="panel--list">
+                <div class="tab--container">
+                    <div class="tab--nav tab--btn__nav">
+                        <button class="tab--item" data-tab="bus">라이브버스</button>
+                        <button class="tab--item active" data-tab="station">정류장</button>
+                    </div>
+                    <div class="tab--content">
+                        <div class="tab--panel active" id="bus">
+                            <div class="no-data">
+                                <img src="./assets/images/no-data.png" alt="">
+                                검색결과가 없습니다.
+                            </div>
+                        </div>
+                        <div class="tab--panel" id="station">
+                            <div class="no-data">
+                                <img src="./assets/images/no-data.png" alt="">
+                                검색결과가 없습니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	</div>
+</body>
+
+</html>

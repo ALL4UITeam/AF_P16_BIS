@@ -1,0 +1,77 @@
+/* ========== Tab - 공통  ========== */
+.tab--btn__nav{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #d8d8d8;    
+    border-radius: 5px;
+    .tab--item {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        background: #fff;
+        font-size: 17px;
+        cursor: pointer;
+        border-left: 1px solid #d8d8d8;
+        font-weight: 500;
+        line-height: 1;
+        &:first-child{
+            border-radius:5px 0 0 5px;
+            border-left: none;
+        }
+        &:last-child{
+            border-radius:0 5px 5px 0;
+        }
+        &.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-left: none;
+        }
+    }
+}
+.tab--type__nav{
+    display: flex;
+    justify-content: flex-end;
+    gap:5px;
+    padding: 10px 20px;
+    .tab--item{
+        border: none;
+        .ico{
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-size: contain;
+            &.list{
+                width: 19px;
+                height: 14px;
+                background-image: url("@/assets/images/map/tab-list.png");
+            }
+            &.card{
+                width: 14px;
+                height: 14px;
+                background-image: url("@/assets/images/map/tab-card.png");
+            }
+        }
+        &.active{
+            .list{
+                background-image: url("@/assets/images/map/tab-list-on.png");
+            }
+            .card{
+                background-image: url("@/assets/images/map/tab-card-on.png");
+            }
+        }
+    }
+}
+.tab--container{
+    height: 100%;
+}
+.panel--list{
+    height: 100%;
+}
+.tab--content {
+    height: 100%;
+    .tab--panel {
+        display: none;
+        &.active {
+            display: block;
+        }
+    }
+}
