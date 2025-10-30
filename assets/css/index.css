@@ -691,12 +691,22 @@ button, a {
 }
 
 /* ========== panel - list  죄측 1뎁스 패널 ========== */
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--list {
+    background: #fff;
+  }
+}
 .panel--list .tab--btn__nav {
   margin: 20px;
 }
 .panel--list .tab--panel {
   padding: 0 20px 20px;
   height: calc(100% - 175px - 75px - 126px);
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--list .tab--panel {
+    height: calc(100% - 115px);
+  }
 }
 .panel--list .panel--item {
   background: #fff;
@@ -828,6 +838,7 @@ button, a {
 /* ========== panel - expand  공통========== */
 .panel--expand {
   position: absolute;
+  z-index: 101;
   left: 420px;
   height: calc(100% - 40px);
   top: 20px;
@@ -836,18 +847,32 @@ button, a {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 400px;
   overflow: hidden;
+  transition: all 0.3s;
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--expand {
+    position: absolute;
+    height: auto;
+    left: 10px;
+    top: 10px;
+    width: calc(100% - 20px);
+  }
+}
+.panel--expand__top {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 20px;
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--expand__top {
+    padding: 10px;
+  }
 }
 .panel--expand__head {
   color: #fff;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: flex-end;
   align-items: center;
   font-size: 19px;
   font-weight: 300;
-}
-.panel--expand__head span {
-  color: #fff;
 }
 .panel--expand__head .back {
   background-color: transparent;
@@ -866,28 +891,39 @@ button, a {
   background-repeat: no-repeat;
   background-image: url("../images/modal-close.png");
 }
-.panel--expand__content {
-  height: 100%;
+.panel--expand__head .bus-type-inner {
+  padding: 0 30px 10px;
 }
-.panel--expand__content .bus-type-inner {
-  padding: 0 30px 30px;
-}
-.panel--expand__content .bus-type {
+.panel--expand__head .bus-type {
   display: inline-flex;
   align-items: center;
   width: 100%;
   flex-direction: column;
   gap: 12px;
 }
-.panel--expand__content .bus-type .bus-type-badge {
+.panel--expand__head .bus-type .bus-type-badge {
   padding: 5px 25px;
   border-radius: 5px;
   background: #047bb6;
   color: #fff;
 }
-.panel--expand__content .bus-type .bus-type-label {
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--expand__head .bus-type .bus-type-badge {
+    padding: 5px 15px;
+    font-size: 15px;
+  }
+}
+.panel--expand__head .bus-type .bus-type-label {
   font-size: 30px;
   font-weight: bold;
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--expand__head .bus-type .bus-type-label {
+    font-size: 25px;
+  }
+}
+.panel--expand__content {
+  height: 100%;
 }
 .panel--expand__content .bus-info-inner {
   padding: 0 20px 30px 20px;
@@ -928,6 +964,9 @@ button, a {
   color: #717171;
 }
 .panel--expand__content .section--meta {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -935,6 +974,13 @@ button, a {
   border-top: 1px solid #d8d8d8;
   border-bottom: 1px solid #d8d8d8;
   background-color: #fff;
+  background: #fff;
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .panel--expand__content .section--meta {
+    margin-top: -1px;
+    top: -1px;
+  }
 }
 .panel--expand__content .section--meta__title {
   font-size: 1rem;
@@ -975,10 +1021,73 @@ button, a {
   outline-offset: 2px;
 }
 
+/* ========== panel - sheet  드래그 기능 패널 공통 ========== */
+.Map.is-sheet-open .panel--header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+  background: #e8f2fa;
+}
+.Map.is-sheet-open .panel--expand {
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+  background: #e8f2fa;
+}
+
+@media (max-width: calc(768px - 0.02px)) {
+  .sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 1000;
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    height: 100svh;
+    max-height: calc(100svh - 125px);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
+    /* 여기! 100vh → var(--max-h) 로 교체 */
+    transform: translateY(calc(100svh - 200px));
+    will-change: transform;
+    touch-action: none;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .sheet--anim {
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .sheet-handle {
+    padding: 15px 0 15px;
+    display: grid;
+    place-items: center;
+    cursor: grab;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  .sheet-handle .grip {
+    width: 44px;
+    height: 5px;
+    border-radius: 999px;
+    background: #d1d5db;
+  }
+}
+
 /* ========== 타임라인 - 버스 위치 ========== */
+.timelin-inner {
+  position: relative;
+  padding-top: 10px;
+  height: calc(100% - 130px);
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .timelin-inner {
+    height: calc(100% - 35px);
+  }
+}
+
 .route-timeline-inner {
   padding: 20px;
-  height: calc(100% - 54px - 118px - 250px - 13px);
 }
 
 .route-timeline {
@@ -1119,7 +1228,12 @@ button, a {
 }
 .station-list .tab--panel {
   padding: 0 20px 20px;
-  height: calc(100% - 255px);
+  height: calc(100% - 205px);
+}
+@media (max-width: calc(768px - 0.02px)) {
+  .station-list .tab--panel {
+    height: calc(100% - 112px);
+  }
 }
 
 /* ========== 리스트 - 확장형 ========== */
@@ -1379,6 +1493,11 @@ button, a {
 .no-data img {
   display: block;
 }
+@media (max-width: calc(768px - 0.02px)) {
+  .no-data img {
+    width: 50%;
+  }
+}
 
 .Mac-container {
   overflow: hidden;
@@ -1424,6 +1543,8 @@ button, a {
 }
 .tab--type__nav .tab--item {
   border: none;
+  width: 19px;
+  height: 14px;
 }
 .tab--type__nav .tab--item .ico {
   display: inline-block;
@@ -1487,34 +1608,6 @@ body {
   white-space: nowrap;
 }
 
-/* md 이상 (min-width: 768px~) */
-/* lg 이하 (max-width: 1024px-) */
-.grid {
-  grid-template-columns: 1fr;
-}
-@media (max-width: calc(1024px - 0.02px)) {
-  .grid {
-    gap: 12px;
-  }
-}
-
-/* md ~ xl 사이 */
-.title {
-  font-size: 18px;
-}
-@media (min-width: 768px) and (max-width: calc(1280px - 0.02px)) {
-  .title {
-    font-size: 20px;
-  }
-}
-
-/* sm only (sm ~ 다음 bp 직전) */
-@media (min-width: 480px) and (max-width: calc(768px - 0.02px)) {
-  .nav {
-    display: none;
-  }
-}
-
 :root {
   --max-h: 100svh;
   --min-peek: 80px;
@@ -1528,48 +1621,4 @@ body {
 
 body {
   margin: 0;
-}
-
-.Map.is-sheet-open .panel--header {
-  top: 0;
-  left: 0;
-  width: 100%;
-  border-radius: 0;
-  background: #e8f2fa;
-}
-@media (max-width: calc(768px - 0.02px)) {
-  .sheet {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0px;
-    z-index: 1000;
-    background: #fff;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    height: 100svh;
-    max-height: calc(100svh - 125px);
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
-    /* 여기! 100vh → var(--max-h) 로 교체 */
-    transform: translateY(calc(100svh - 200px));
-    will-change: transform;
-    touch-action: none;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .sheet--anim {
-    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .sheet-handle {
-    padding: 15px 0 15px;
-    display: grid;
-    place-items: center;
-    cursor: grab;
-    border-bottom: 1px solid #eee;
-  }
-  .sheet-handle .grip {
-    width: 44px;
-    height: 5px;
-    border-radius: 999px;
-    background: #d1d5db;
-  }
 }

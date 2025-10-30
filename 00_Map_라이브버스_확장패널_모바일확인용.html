@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>BIS</title>
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="./assets/fonts/esamanru.css">
+	<link rel="stylesheet" href="./assets/fonts/Freesentation.css">
+	<link rel="stylesheet" href="./lib/simplebar/simplebar.css">
+	<link rel="stylesheet" href="./lib/jQuery-ui/jquery-ui.css">
+	<script src="./lib/jQuery/1.12.3/jquery.min.js"></script>
+	<script src="./lib/jQuery-ui/jquery-ui.min.js"></script>
+	<script src="./lib/simplebar/simplebar.min.js"></script>
+	<script src="./lib/GaugeMeter.js"></script>
+	<script src="./lib/interact.min.js"></script>  <script type="module" src="./assets/js/index2.js"></script>
+  <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+	
+	<div class="Map">
+        <!-- ========== 우측 툴  ==========-->
+        <div class=" Map--mode__top">
+            <div class="Map--mode">
+                <button type="button" class=" btn--mode active" data-toggle data-group="mapModeTop">일반</button>
+                <button type="button" class=" btn--mode" data-toggle data-group="mapModeTop">위성</button>
+            </div>
+        </div>
+
+        <!-- ========== 패널 - 좌측 2뎁스  ==========-->
+        <div class="panel--expand">
+            <div class="panel--expand__head">
+                <div class="panel--expand__top">
+                    <button class="close"></button>
+                </div>
+                
+                <div class="bus-type-inner">
+                    <div class="bus-type">
+                        <span class="bus-type-badge">간선</span>
+                        <span class="bus-type-label">32-5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel--expand__content sheet">
+                <div class="sheet-handle" aria-hidden="true"><div class="grip"></div></div>
+                <div class="timelin-inner" data-simplebar>
+                    <div class="bus-info-inner">
+                        <div class="bus-info">
+                            <dl>
+                                <dt>기점</dt>
+                                <dd>용인공영버스터미널.용인드마크데</dd>
+                            </dl>
+                            <dl>
+                                <dt>종점</dt>
+                                <dd>신평리</dd>
+                            </dl>
+                            <dl>
+                                <dt>운행시간</dt>
+                                <dd>
+                                    평일 06:00~09:50<br>
+                                    주말 06:00~09:50<br>
+                                    공휴일 06:00~09:50
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>배차간격</dt>
+                                <dd>
+                                    평일 120~150분<br>
+                                    주말 120~125분<br>
+                                    공휴일 120~125분
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="section--meta">
+                        <h2 class="section--meta__title">경로보기</h2>
+                    
+                        <div class="section--meta__info">
+                            <span class="section--meta__status">1대 운행중</span>
+                            <span class="section--meta__timestamp">오후 01:55:36 기준</span>
+                            <button class="section--meta__refresh" aria-label="새로고침"></button>
+                        </div>
+                    </div>
+                    <div class="route-timeline-inner">
+                        <!-- 타임라인 컨테이너 -->
+                        <div class="route-timeline">
+                            <div class="buses">
+                                <div class="bus" style="top: 20%;">
+                                    <img src="./assets/images/blue-bus25@24.png" alt="">
+                                    <div class="tooltip" aria-hidden="true">
+                                        <div>78아1514</div>
+                                        <div>저상</div>
+                                        <div class="green">여유</div>
+                                    </div>
+                                </div>
+                                <div class="bus" style="top: 45%;">
+                                    <img src="./assets/images/blue-bus25@24.png" alt="">
+                                    <div class="tooltip" aria-hidden="true">
+                                        <div>78아1514</div>
+                                        <div>저상</div>
+                                        <div class="red">혼잡</div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- 정류장 목록 -->
+                            <ol class="stops">
+                                <li class="stop">
+                                    <div class="stop-marker"></div>
+                                    <div class="stop-info">
+                                        <div class="stop-name">용인공영버스터미널</div>
+                                        <div class="stop-code">29434 | 04:30~23:30</div>
+                                        <div class="stop-status">도착 예정 정보 없음</div>
+                                    </div>
+                                </li>
+                                <li class="stop">
+                                    <div class="stop-marker"></div>
+                                    <div class="stop-info">
+                                        <div class="stop-name">용인드마크데..</div>
+                                        <div class="stop-code">29435 | 04:30~23:30</div>
+                                        <div class="stop-status arrival">6분 20초</div>
+                                    </div>
+                                </li>
+                                <li class="stop">
+                                    <div class="stop-marker"></div>
+                                    <div class="stop-info">
+                                        <div class="stop-name">용인드마크데..</div>
+                                        <div class="stop-code">29435 | 04:30~23:30</div>
+                                        <div class="stop-status">도착 예정 정보 없음</div>
+                                    </div>
+                                </li>
+                                <li class="stop">
+                                    <div class="stop-marker"></div>
+                                    <div class="stop-info">
+                                        <div class="stop-name">용인드마크데..</div>
+                                        <div class="stop-code">29435 | 04:30~23:30</div>
+                                        <div class="stop-status">도착 예정 정보 없음</div>
+                                    </div>
+                                </li>
+                                <li class="stop">
+                                    <div class="stop-marker"></div>
+                                    <div class="stop-info">
+                                        <div class="stop-name">용인드마크데..</div>
+                                        <div class="stop-code">29435 | 04:30~23:30</div>
+                                        <div class="stop-status">도착 예정 정보 없음</div>
+                                    </div>
+                                </li>
+                                <li class="stop">
+                                    <div class="stop-marker"></div>
+                                    <div class="stop-info">
+                                        <div class="stop-name">용인드마크데..</div>
+                                        <div class="stop-code">29435 | 04:30~23:30</div>
+                                        <div class="stop-status">도착 예정 정보 없음</div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</body>
+
+</html>
