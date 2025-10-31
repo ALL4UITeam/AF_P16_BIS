@@ -35,50 +35,51 @@
                 <h1 class="logo">
                     <a href=""><img src="./assets/images/logo.png" alt="로고"></a>
                 </h1>  
+                <div class="panel--wheather">
+                    <div class="panel--wheather__today">
+                        <div class="wheather-img">
+                            <img src="./assets/images/ico-wheather.png" alt="구름조금">
+                        </div>
+                        <div class="wheather-value">
+                            <strong>12°</strong>  
+                            <p>최고<strong>18°</strong></p>
+                            <p>최저<strong>9°</strong></p>
+                        </div>
+                    </div>
+                    <div class="panel--wheather__wGrInfo">
+                        <div>
+                            <!-- 그래프 -->
+                            <div class="wGraphWrap">
+                                <div class="chartBox">
+                                    <div class="GaugeMeter" id="PreviewGaugeMeter_1" data-percent="88" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9" data-label="ug/m3" data-style="Arch"  data-label_color="#83838D"></div>
+                        
+                                    <div class="txtInfo">
+                                        <p>좋음</p>
+                                        <p>초미세먼지</p>									
+                                    </div>
+                                </div>
+                        
+                                <div class="chartBox">
+                                    <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="50" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9"  data-label="ug/m3"  data-style="Arch"  data-label_color="#83838D"></div>
+                        
+                                    <div class="txtInfo">
+                                        <p>좋음</p>
+                                        <p>미세먼지</p>									
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 그래프 -->
+                        </div>
+                    
+                        <p class="exTxt">비 예보</p>
+                    </div>
+                </div>
                 <div class="panel--search">
                     <input type="text" class="search--input" placeholder="정류장 이름(ID), 버스번호, 도착지를 입력하세요." />
                     <button class="search--button"><img src="./assets/images/ico-search.png" alt=""></button>
                 </div>
             </div>
-            <div class="panel--wheather">
-                <div class="panel--wheather__today">
-                    <div class="wheather-img">
-                        <img src="./assets/images/ico-wheather.png" alt="구름조금">
-                    </div>
-                    <div class="wheather-value">
-                        <strong>12°</strong>  
-                        <p>최고<strong>18°</strong></p>
-                        <p>최저<strong>9°</strong></p>
-                    </div>
-                </div>
-                <div class="panel--wheather__wGrInfo">
-                    <div>
-                        <!-- 그래프 -->
-                        <div class="wGraphWrap">
-                            <div class="chartBox">
-                                <div class="GaugeMeter" id="PreviewGaugeMeter_1" data-percent="88" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9" data-label="ug/m3" data-style="Arch"  data-label_color="#83838D"></div>
-                    
-                                <div class="txtInfo">
-                                    <p>좋음</p>
-                                    <p>초미세먼지</p>									
-                                </div>
-                            </div>
-                    
-                            <div class="chartBox">
-                                <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="50" data-size="55" data-color="#047bb6" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="#000000" data-animate_text_colors="#000000" data-width="9"  data-label="ug/m3"  data-style="Arch"  data-label_color="#83838D"></div>
-                    
-                                <div class="txtInfo">
-                                    <p>좋음</p>
-                                    <p>미세먼지</p>									
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 그래프 -->
-                    </div>
-                
-                    <p class="exTxt">비 예보</p>
-                </div>
-            </div>
+
             <div class="panel--list sheet">
                 <div class="sheet-handle" aria-hidden="true"><div class="grip"></div></div>
                 <div class="tab--container">
