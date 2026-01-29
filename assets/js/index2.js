@@ -36,6 +36,23 @@
   }
 })();
 document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.querySelector(".newyear-overlay");
+  const countdownNumber = document.querySelector(".newyear-overlay__countdown-number");
+  if (overlay && countdownNumber) {
+    let count = 5;
+    const updateCountdown = () => {
+      if (count > 0) {
+        countdownNumber.textContent = count;
+        count--;
+        setTimeout(updateCountdown, 1e3);
+      } else {
+        countdownNumber.textContent = "0";
+      }
+    };
+    updateCountdown();
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".tab--container").forEach(initTabGroup);
 });
 function initTabGroup(groupEl) {
