@@ -1,6 +1,28 @@
 
 import { buttonClick, toggleTab } from '../common/ui.js'
 
+// 2026 설날 오버레이 카운트다운
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.querySelector('.newyear-overlay');
+  const countdownNumber = document.querySelector('.newyear-overlay__countdown-number');
+  
+  if (overlay && countdownNumber) {
+    let count = 5;
+    
+    const updateCountdown = () => {
+      if (count > 0) {
+        countdownNumber.textContent = count;
+        count--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        countdownNumber.textContent = '0';
+      }
+    };
+    
+    updateCountdown();
+  }
+});
+
 // Tab
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".tab--container").forEach(initTabGroup);

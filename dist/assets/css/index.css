@@ -1927,6 +1927,162 @@ button, a {
   display: block;
 }
 
+/* ========== 2026 설날 오버레이 ========== */
+.newyear-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: overlayFadeOut 5s ease-in-out forwards;
+  pointer-events: none;
+}
+.newyear-overlay__content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  text-align: center;
+}
+.newyear-overlay__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.newyear-overlay__countdown {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+}
+.newyear-overlay__countdown-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+@keyframes overlayFadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+/* ========== 설날 스킨 ========== */
+.panel--header--newyear {
+  position: relative;
+  overflow: visible;
+}
+
+.panel--wheather--newyear {
+  position: relative;
+}
+.panel--wheather--newyear::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 80px;
+  background-image: url("../images/newyear-skin.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+.panel--wheather--newyear .panel--wheather__today,
+.panel--wheather--newyear .panel--wheather__wGrInfo {
+  position: relative;
+  z-index: 2;
+}
+
+.panel--header--newyear__decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 10;
+}
+.panel--header--newyear__decoration-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+}
+.panel--header--newyear__decoration-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 80px;
+  height: 80px;
+}
+.panel--header--newyear__decoration-tree01, .panel--header--newyear__decoration-tree02 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+.panel--header--newyear__decoration-tree01 {
+  background-image: url("../images/newyear-tree01.gif");
+  opacity: 1;
+  animation: treeFadeOut 4s ease-in-out forwards;
+}
+.panel--header--newyear__decoration-tree02 {
+  background-image: url("../images/newyear-tree02.gif");
+  opacity: 0;
+  animation: treeFadeIn 4s ease-in-out forwards;
+}
+@keyframes treeFadeOut {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes treeFadeIn {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.panel--header--newyear__decoration-right {
+  background-image: url("../images/newyear-deco.gif");
+  background-size: contain;
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
 /* ====== Design tokens ====== */
 html {
   width: 100%;
