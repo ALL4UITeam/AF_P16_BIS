@@ -36,8 +36,8 @@
   }
 })();
 document.addEventListener("DOMContentLoaded", () => {
-  const overlay = document.querySelector(".newyear-overlay");
-  const countdownNumber = document.querySelector(".newyear-overlay__countdown-number");
+  const overlay = document.querySelector(".skin-overlay");
+  const countdownNumber = document.querySelector(".skin-overlay__countdown-number");
   if (overlay && countdownNumber) {
     let count = 5;
     const updateCountdown = () => {
