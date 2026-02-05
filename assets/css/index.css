@@ -1928,7 +1928,7 @@ button, a {
 }
 
 /* ========== 2026 설날 오버레이 ========== */
-.newyear-overlay {
+.skin-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -1942,28 +1942,28 @@ button, a {
   animation: overlayFadeOut 5s ease-in-out forwards;
   pointer-events: none;
 }
-.newyear-overlay__content {
+.skin-overlay__content {
   position: relative;
   max-width: 90%;
   max-height: 90%;
   text-align: center;
 }
-.newyear-overlay__image {
+.skin-overlay__image {
   width: 100%;
   height: auto;
   display: block;
 }
-.newyear-overlay__countdown {
+.skin-overlay__countdown {
   margin-top: 20px;
   color: #fff;
   font-size: 18px;
   font-weight: 500;
 }
-.newyear-overlay__countdown-number {
+.skin-overlay__countdown-number {
   font-size: 24px;
   font-weight: bold;
-  color: #ffd700;
   margin-right: 5px;
+  color: #fff;
 }
 
 @keyframes overlayFadeOut {
@@ -2081,6 +2081,125 @@ button, a {
   background-size: contain;
   background-position: right top;
   background-repeat: no-repeat;
+}
+
+/* ========== 폭설 스킨 ========== */
+.panel--header--snow {
+  position: relative;
+  overflow: visible;
+}
+
+.panel--wheather--snow {
+  position: relative;
+}
+.panel--wheather--snow::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 43px;
+  background-image: url("../images/snow-skin.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+.panel--wheather--snow .panel--wheather__today,
+.panel--wheather--snow .panel--wheather__wGrInfo {
+  position: relative;
+  z-index: 2;
+}
+
+.panel--header--snow__decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 10;
+}
+.panel--header--snow__decoration-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+}
+.panel--header--snow__decoration-right {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+}
+.panel--header--snow__decoration-left01, .panel--header--snow__decoration-left02 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+.panel--header--snow__decoration-left01 {
+  background-image: url("../images/snow_L01.gif");
+  opacity: 1;
+  animation: treeFadeOut 4s ease-in-out forwards;
+}
+.panel--header--snow__decoration-left02 {
+  background-image: url("../images/snow_L02.gif");
+  opacity: 0;
+  animation: treeFadeIn 4s ease-in-out forwards;
+}
+.panel--header--snow__decoration-right01, .panel--header--snow__decoration-right02 {
+  position: absolute;
+  top: -7px;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+.panel--header--snow__decoration-right01 {
+  background-image: url("../images/snow_R01.gif");
+  opacity: 1;
+  animation: treeFadeOut 4s ease-in-out forwards;
+}
+.panel--header--snow__decoration-right02 {
+  background-image: url("../images/snow_R02.gif");
+  opacity: 0;
+  animation: treeFadeIn 4s ease-in-out forwards;
+}
+@keyframes treeFadeOut {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes treeFadeIn {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* ====== Design tokens ====== */
